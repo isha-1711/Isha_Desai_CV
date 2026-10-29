@@ -1,0 +1,199 @@
+/* ---------- Tokens ---------- */
+:root {
+  --butter: #fff8dc;        /* page background */
+  --cream: #fffdf2;         /* main reading surface */
+  --sun: #ffe58a;           /* sidebar fill, highlights */
+  --sun-deep: #f3d765;      /* lines, markers */
+  --ink: #3a3015;           /* text */
+  --ink-soft: #6e6035;      /* secondary text */
+  --link: #7a5a00;
+
+  --font-head: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "Lora", Georgia, "Times New Roman", serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--butter);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { background: var(--sun); }
+a:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+h1, h2, h3 { font-family: var(--font-head); line-height: 1.2; margin: 0; }
+
+/* ---------- Page layout ---------- */
+.page {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  max-width: 1180px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  background: var(--sun);
+  padding: 2.5rem 2rem 3rem;
+  position: sticky;
+  top: 0;
+  align-self: start;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+.photo {
+  position: relative;
+  width: 100%;
+  max-width: 230px;
+  aspect-ratio: 4 / 5;
+  margin: 0 auto 1.75rem;
+  border-radius: 999px 999px 24px 24px;   /* arch shape */
+  background: var(--cream);
+  overflow: hidden;
+  box-shadow: 8px 8px 0 var(--sun-deep);
+  display: grid;
+  place-items: center;
+}
+.photo::before {                          /* shows if no image is added yet */
+  content: attr(data-initials);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 3.5rem;
+  color: var(--sun-deep);
+}
+.photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sidebar h1 { font-size: 2rem; font-weight: 700; text-align: center; }
+.role { text-align: center; color: var(--ink-soft); margin: 0.5rem 0 2rem; font-size: 0.98rem; }
+
+.side-block { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 2px solid var(--sun-deep); }
+.side-block h2 { font-size: 1.2rem; margin-bottom: 0.75rem; color: var(--ink); }
+.side-block h3 { font-size: 0.95rem; font-weight: 500; color: var(--ink-soft); margin: 1rem 0 0.4rem; }
+
+.contact { list-style: none; margin: 0; padding: 0; font-size: 0.97rem; }
+.contact li { padding: 0.15rem 0; overflow-wrap: anywhere; }
+.contact a { color: var(--ink); }
+
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.chips li {
+  background: var(--cream);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 0.15rem 0.75rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+/* ---------- Main column ---------- */
+.main {
+  background: var(--cream);
+  padding: 3rem clamp(1.5rem, 5vw, 4rem) 3rem;
+}
+
+.main section { margin-bottom: 3rem; }
+.main section > h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  display: inline-block;
+  background: var(--sun);
+  color: var(--ink);
+  padding: 0.2rem 0.9rem 0.3rem;
+  border-radius: 10px;
+}
+
+.main p { margin: 0 0 0.9rem; max-width: 68ch; }
+
+/* ---------- Timeline (education, research, internships) ---------- */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.75rem;
+  border-left: 2px solid var(--sun-deep);
+}
+.timeline > li { position: relative; padding-bottom: 1.9rem; }
+.timeline > li:last-child { padding-bottom: 0; }
+.timeline > li::before {
+  content: "";
+  position: absolute;
+  left: calc(-1.75rem - 7px);
+  top: 0.45rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--sun);
+  border: 2px solid var(--cream);
+  box-shadow: 0 0 0 2px var(--sun-deep);
+}
+.when { display: block; font-size: 0.9rem; font-weight: 600; color: var(--ink-soft); margin-bottom: 0.15rem; }
+.timeline h3 { font-size: 1.2rem; font-weight: 600; }
+.where { color: var(--ink-soft); font-size: 0.97rem; margin: 0.2rem 0 0.5rem !important; }
+
+.timeline ul, .plain { margin: 0.4rem 0 0; padding-left: 1.2rem; max-width: 68ch; }
+.timeline ul li, .plain li { margin-bottom: 0.4rem; }
+.timeline ul li::marker, .plain li::marker { color: var(--sun-deep); }
+.plain { margin-top: 0; }
+
+/* ---------- Exam facts ---------- */
+.facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.facts li {
+  background: var(--butter);
+  border-left: 5px solid var(--sun-deep);
+  padding: 0.6rem 1rem;
+  border-radius: 0 12px 12px 0;
+}
+.facts strong { display: block; font-family: var(--font-head); font-weight: 600; }
+
+/* ---------- Footer ---------- */
+footer {
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--sun);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  color: var(--ink-soft);
+}
+footer p { margin: 0; }
+
+/* ---------- Tablet and mobile ---------- */
+@media (max-width: 860px) {
+  .page { grid-template-columns: 1fr; }
+  .sidebar { position: static; max-height: none; padding: 2rem 1.5rem; }
+  .photo { max-width: 200px; }
+}
+
+@media (max-width: 480px) {
+  body { font-size: 1rem; }
+  .main { padding: 2rem 1.25rem; }
+  .main section > h2 { font-size: 1.5rem; }
+}
+
+/* ---------- Print: save as a clean PDF straight from the browser ---------- */
+@media print {
+  body { background: #fff; font-size: 10.5pt; }
+  .page { display: block; max-width: none; }
+  .sidebar { position: static; max-height: none; break-after: avoid; }
+  .photo { box-shadow: none; }
+  .main { padding: 1.5rem 0 0; }
+  .timeline > li, .facts li { break-inside: avoid; }
+  a { color: var(--ink); text-decoration: none; }
+}
